@@ -1,14 +1,16 @@
 import { ILocation } from "./location";
 
-export interface IPlace {
-  id: string;
+export interface IPlaceCreate {
   title: string;
   imageUri: string;
   address: string;
   location: ILocation;
 }
+export interface IPlace extends IPlaceCreate {
+  id: string;
+}
 
-class Place {
+export class Place {
   id: string;
   title: string;
   imageUri: string;

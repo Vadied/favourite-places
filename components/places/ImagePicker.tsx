@@ -1,23 +1,30 @@
 import { useState } from "react";
 import { Text, Alert, View, Image, StyleSheet } from "react-native";
-import * as ImagePickerLib from "expo-image-picker";
+import {
+  useCameraPermissions,
+  PermissionStatus,
+  launchCameraAsync,
+  MediaTypeOptions,
+} from "expo-image-picker";
 
-import { Colors } from "../../constants/colors";
+import { Colors } from "../../constants";
 
-import OutlinedButton from "../ui/OutlinedButton";
+import { OutlinedButton } from "../ui";
 
-const ImagePicker = () => {
-  const [permissions, requestPermiossons] =
-    ImagePickerLib.useCameraPermissions();
+type Props = {
+  onChange(image: string): void;
+};
+const ImagePicker = ({ onChange }: Props) => {
+  const [permissions, requestPermissions] = useCameraPermissions();
   const [image, setImage] = useState("");
 
   const verifyPermissions = async () => {
-    if (permissions?.status === ImagePickerLib.PermissionStatus.UNDETERMINED) {
-      const { granted } = await requestPermiossons();
+    if (permissions?.status === PermissionStatus.UNDETERMINED) {
+      const { granted } = await requestPermissions();
       return granted;
     }
 
-    if (permissions?.status === ImagePickerLib.PermissionStatus.DENIED) {
+    if (permissions?.status === PermissionStatus.DENIED) {
       Alert.alert(
         "Insufficient Permissions!",
         "You need to grant camera permissions to use this app."
@@ -32,18 +39,17 @@ const ImagePicker = () => {
     const hasPermission = await verifyPermissions();
     if (!hasPermission) return;
 
-    console.log(" open ---->");
     try {
-      const result = await ImagePickerLib.launchCameraAsync({
-        mediaTypes: ImagePickerLib.MediaTypeOptions.All,
+      const result = await launchCameraAsync({
+        mediaTypes: MediaTypeOptions.All,
         allowsEditing: true,
         aspect: [16, 9],
         quality: 0.5,
       });
-      console.log(" eccolo ---->", result);
       if (result.canceled) return;
 
       setImage(result.assets[0].uri);
+      onChange(result.assets[0].uri);
     } catch (err) {
       console.log(err);
     }
@@ -52,7 +58,7 @@ const ImagePicker = () => {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
-        {!image && <Text style={styles.text}>No image taken yet</Text>}
+        {!image && <Text>No image taken yet</Text>}
         {image && <Image style={styles.image} source={{ uri: image }} />}
       </View>
       <OutlinedButton icon="camera" onPress={openCamera}>
@@ -98,8 +104,5 @@ const styles = StyleSheet.create({
     margin: 64,
     alignItems: "center",
     justifyContent: "center",
-  },
-  text: {
-    color: "white",
   },
 });
