@@ -1,3 +1,4 @@
+import React from "react";
 import {
   GestureResponderEvent,
   Image,
@@ -7,11 +8,11 @@ import {
   View,
 } from "react-native";
 
-import { IPlace } from "../../models";
+import { Place } from "../../models";
 import { Colors } from "../../constants";
 
 type Props = {
-  place: IPlace;
+  place: Place;
   onSelect(event: GestureResponderEvent): void;
 };
 const PlaceItem = ({ place, onSelect }: Props) => {

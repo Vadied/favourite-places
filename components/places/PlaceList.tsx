@@ -1,12 +1,13 @@
+import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
-import { IPlace } from "../../models";
+import { Place } from "../../models";
 import { Colors } from "../../constants";
 
-import {PlaceItem} from ".";
+import PlaceItem from "./PlaceItem";
 
 type Props = {
-  places: IPlace[];
+  places: Place[];
 };
 const PlacesList = ({ places }: Props) => {
   if (!places || places.length === 0) {

@@ -1,14 +1,17 @@
+import React from "react";
+
 import { useState, useCallback } from "react";
 import { StyleSheet, Text, TextInput, View, ScrollView } from "react-native";
 
-import { ILocation, Place } from "../../models";
+import { ILocation, PlaceCreate } from "../../models";
 import { Colors } from "../../constants";
 
 import { Button } from "../ui";
-import { ImagePicker, LocationPicker } from ".";
+import ImagePicker from "./ImagePicker";
+import LocationPicker from "./LocationPicker";
 
 type Props = {
-  onCreate(place: Place): void;
+  onCreate(place: PlaceCreate): void;
 };
 const PlaceForm = ({ onCreate }: Props) => {
   const [title, setTitle] = useState("");
@@ -31,10 +34,9 @@ const PlaceForm = ({ onCreate }: Props) => {
   );
 
   const handleSave = () => {
-    console.log(location);
     if (!location) return;
 
-    onCreate(new Place(title, imageUri, address, location));
+    onCreate(new PlaceCreate(title, imageUri, address, location));
   };
 
   return (

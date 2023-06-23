@@ -1,17 +1,6 @@
 import { ILocation } from "./location";
 
-export interface IPlaceCreate {
-  title: string;
-  imageUri: string;
-  address: string;
-  location: ILocation;
-}
-export interface IPlace extends IPlaceCreate {
-  id: string;
-}
-
-export class Place {
-  id: string;
+export class PlaceCreate {
   title: string;
   imageUri: string;
   address: string;
@@ -27,6 +16,20 @@ export class Place {
     this.imageUri = imageUri;
     this.address = address;
     this.location = location; // { lat: 0.141241, lng: 127.121 }
-    this.id = new Date().toString() + Math.random().toString();
+  }
+}
+
+export class Place extends PlaceCreate {
+  id: string;
+
+  constructor(
+    title: string,
+    imageUri: string,
+    address: string,
+    location: ILocation,
+    id: string
+  ) {
+    super(title, imageUri, address, location);
+    this.id = id;
   }
 }
