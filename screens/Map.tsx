@@ -8,10 +8,10 @@ import { ILocation, RootStackParamList } from "../models";
 
 import { IconButton } from "../components/ui";
 
-export type MapNavProps = NativeStackScreenProps<RootStackParamList, "Map">;
-export type MapRouteProps = RouteProp<RootStackParamList, "Map">;
-
-type Props = NativeStackScreenProps<RootStackParamList, "Map">;
+type screen = "Map";
+export type MapNavProps = NativeStackScreenProps<RootStackParamList, screen>;
+export type MapRouteProps = RouteProp<RootStackParamList, screen>;
+type Props = NativeStackScreenProps<RootStackParamList, screen>;
 const Map = ({ navigation }: Props) => {
   const [location, setLocation] = useState<ILocation>();
 

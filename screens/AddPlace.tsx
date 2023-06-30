@@ -11,13 +11,14 @@ import { PlaceCreate, RootStackParamList } from "../models";
 import { PlaceForm } from "../components/places";
 import { usePlaces } from "../contexts";
 
+type screen = "AddPlace";
 export type AddPlaceNavProps = NativeStackNavigationProp<
   RootStackParamList,
-  "AddPlace"
+  screen
 >;
-export type AddPlaceRouteProps = RouteProp<RootStackParamList, "AddPlace">;
+export type AddPlaceRouteProps = RouteProp<RootStackParamList, screen>;
 
-type Props = NativeStackScreenProps<RootStackParamList, "AddPlace">;
+type Props = NativeStackScreenProps<RootStackParamList, screen>;
 const AddPlace = ({ navigation }: Props) => {
   const { savePlace } = usePlaces();
   const handleCreate = (place: PlaceCreate) => {

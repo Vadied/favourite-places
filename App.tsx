@@ -1,3 +1,4 @@
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
@@ -6,7 +7,7 @@ import AppLoading from "expo-app-loading";
 import { RootStackParamList } from "./models";
 import { Colors } from "./constants";
 import { usePlaces } from "./contexts";
-import { AllPlaces, AddPlace, Map } from "./screens";
+import { AllPlaces, AddPlace, Map, PlaceDetails } from "./screens";
 import { IconButton } from "./components/ui";
 import Context from "./components/Context";
 
@@ -52,6 +53,7 @@ export default function App() {
               }}
             />
             <Stack.Screen name="Map" component={Map} />
+            <Stack.Screen name="PlaceDetails" component={PlaceDetails} />
           </Stack.Navigator>
         </NavigationContainer>
       </Context>
