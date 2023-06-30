@@ -17,13 +17,15 @@ export type PlaceDetailsRouteProps = RouteProp<RootStackParamList, screen>;
 type Props = NativeStackScreenProps<RootStackParamList, screen>;
 const PlaceDetails = ({ route }: Props) => {
   const { placeId } = route.params;
-  const {} = usePlaces();
+  const { fetchPlace } = usePlaces();
 
-  useEffect(() => {}, [placeId]);
+  useEffect(() => {
+    fetchPlace(placeId);
+  }, [placeId]);
   const handleShowMap = () => {};
   return (
     <ScrollView>
-      <Image style={styles.image} />
+      <Image style={styles.image} /> 
       <View style={styles.locationContainer}>
         <View style={styles.addressContainer}>
           <Text style={styles.address}></Text>

@@ -6,14 +6,14 @@ import { PlaceList } from "../components/places";
 import { usePlaces } from "../contexts";
 
 const AllPlaces = () => {
-  const [places, setPlaces] = useState<Place[]>([]);
   const { fetchPlaces } = usePlaces();
-
   const isFocused = useIsFocused();
 
+  const [places, setPlaces] = useState<Place[]>([]);
+
   const getPlaces = useCallback(async () => {
-    console.log("focus", isFocused)
     if (!isFocused) return;
+
     const places = await fetchPlaces();
     setPlaces(places);
   }, [isFocused, fetchPlaces]);

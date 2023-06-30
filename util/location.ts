@@ -13,5 +13,7 @@ export const getAddress = async ({ lat, lng }: ILocation) => {
   if (!result.ok) throw new Error("Failed to fetch address!");
 
   const data: google.maps.GeocoderResponse = await result.json();
+  if(!data.results[0]) throw new Error("Failed to fetch address!");
+
   return data.results[0].formatted_address;
 };
