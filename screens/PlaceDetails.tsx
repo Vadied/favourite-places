@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { RouteProp } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
-import { Place, RootStackParamList } from "../models";
+import { ILocation, Place, RootStackParamList } from "../models";
 import { Colors } from "../constants";
 import { usePlaces } from "../hooks";
 import { OutlinedButton, Image, Loader } from "../components/ui";
@@ -27,9 +27,14 @@ const PlaceDetails = ({ route, navigation }: Props) => {
     });
   }, [placeId]);
 
-  if (loading) return <Loader />;
+  if (!place && loading) return <Loader />;
 
-  const handleShowMap = () => {};
+  const handleShowMap = () => {
+    navigation.navigate(`Map`, {
+      lat: (place as Place).lat,
+      lng: (place as Place).lng,
+    });
+  };
 
   return (
     <ScrollView>

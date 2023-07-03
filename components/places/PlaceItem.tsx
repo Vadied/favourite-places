@@ -1,7 +1,6 @@
 import React from "react";
 import {
   GestureResponderEvent,
-  Image,
   Pressable,
   StyleSheet,
   Text,
@@ -10,6 +9,7 @@ import {
 
 import { Place } from "../../models";
 import { Colors } from "../../constants";
+import { Image } from "../ui";
 
 type Props = {
   place: Place;
@@ -21,7 +21,7 @@ const PlaceItem = ({ place, onSelect }: Props) => {
       style={({ pressed }) => [styles.item, pressed && styles.pressed]}
       onPress={onSelect}
     >
-      <Image style={styles.image} source={{ uri: place.imageUri }} />
+      <Image style={styles.image} uri={place.imageUri || ""} />
       <View style={styles.info}>
         <Text style={styles.title}>{place.title}</Text>
         <Text style={styles.address}>{place.address}</Text>

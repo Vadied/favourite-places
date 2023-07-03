@@ -25,6 +25,8 @@ const AllPlaces = () => {
 
   if (loading) return <Loader />;
 
+  places.forEach(p => console.log(p))
+
   return <PlaceList places={places} />;
 };
 

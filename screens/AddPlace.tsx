@@ -21,6 +21,7 @@ type Props = NativeStackScreenProps<RootStackParamList, screen>;
 const AddPlace = ({ navigation }: Props) => {
   const { savePlace, loading } = usePlaces();
   const handleCreate = (place: PlaceCreate) => {
+
     savePlace(place);
     navigation.navigate("AllPlaces");
   };

@@ -36,7 +36,9 @@ const PlaceForm = ({ onCreate }: Props) => {
   const handleSave = () => {
     if (!location) return;
 
-    onCreate(new PlaceCreate(title, imageUri, address, location));
+    onCreate(
+      new PlaceCreate(title, imageUri, address, location.lat, location.lng)
+    );
   };
 
   return (

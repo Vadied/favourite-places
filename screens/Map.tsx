@@ -12,17 +12,22 @@ type screen = "Map";
 export type MapNavProps = NativeStackScreenProps<RootStackParamList, screen>;
 export type MapRouteProps = RouteProp<RootStackParamList, screen>;
 type Props = NativeStackScreenProps<RootStackParamList, screen>;
-const Map = ({ navigation }: Props) => {
-  const [location, setLocation] = useState<ILocation>();
+const Map = ({ navigation, route }: Props) => {
+  const [location, setLocation] = useState<ILocation>({
+    lat: route.params?.lat || 45.0823,
+    lng: route.params?.lng || 7.6841,
+  });
 
   const region = {
-    latitude: 37.78,
-    longitude: -122.43,
+    latitude: location.lat,
+    longitude: location.lng,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
   };
 
   const handleSelection = (e: MapPressEvent) => {
+    if (route.params) return;
+    
     const lat = e.nativeEvent.coordinate.latitude;
     const lng = e.nativeEvent.coordinate.longitude;
     setLocation({ lat, lng });
@@ -39,6 +44,8 @@ const Map = ({ navigation }: Props) => {
   }, [location, navigation]);
 
   useLayoutEffect(() => {
+    if (route.params) return;
+
     navigation.setOptions({
       headerRight: ({ tintColor }) => (
         <IconButton

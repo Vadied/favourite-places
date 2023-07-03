@@ -6,6 +6,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
+
 import { Colors } from "../../constants";
 
 type Props = {
@@ -14,7 +15,7 @@ type Props = {
 };
 const Image = ({ style, uri }: Props) => {
   if (!uri) return <View style={[style, styles.image]}></View>;
-  
+
   return <ImageNative source={{ uri }} style={style} />;
 };
 

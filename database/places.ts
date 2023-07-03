@@ -3,6 +3,18 @@ import { Place, PlaceCreate } from "../models";
 
 const db = SQLite.openDatabase("places.db");
 
+const parseData = (_array: any[]) => {
+  console.log(_array)
+  const data: Place[] = [];
+  for (const dp of _array) {
+    data.push(
+      new Place(dp.title, dp.imageUri, dp.address, dp.lat, dp.lng, dp.id)
+    );
+  }
+
+  return data;
+};
+
 export const init = () => {
   const promise = new Promise((res, rej) => {
     db.transaction((tx) => {
@@ -31,14 +43,14 @@ export const init = () => {
   return promise;
 };
 
-export const insert = ({ title, imageUri, address, location }: PlaceCreate) =>
+export const insert = ({ title, imageUri, address, lat, lng }: PlaceCreate) =>
   new Promise((res, rej) => {
     db.transaction((tx) => {
       tx.executeSql(
         `
         INSERT INTO places (title, imageUri, address, lat, lng) VALUES (?, ?, ?, ?, ?)
         `,
-        [title, imageUri, address, location.lat, location.lng],
+        [title, imageUri, address, lat, lng],
         (_, result) => {},
         (_, error) => {
           rej(error);
@@ -57,15 +69,8 @@ export const fetchAll = (): Promise<Place[]> =>
         `,
         [],
         (_, { rows: { _array } }) => {
-          const places: Place[] = [];
-
-          for (const dp of _array) {
-            places.push(
-              new Place(dp.title, dp.imageUri, dp.address, dp.location, dp.id)
-            );
-          }
-
-          res(places);
+          const results = parseData(_array);
+          res(results);
         },
         (_, error) => {
           rej(error);
@@ -86,15 +91,8 @@ export const fetchOne = (id: string): Promise<Place> =>
         `,
         [id],
         (_, { rows: { _array } }) => {
-          const places: Place[] = [];
-
-          for (const dp of _array) {
-            places.push(
-              new Place(dp.title, dp.imageUri, dp.address, dp.location, dp.id)
-            );
-          }
-
-          res(places[0]);
+          const results = parseData(_array);
+          res(results[0]);
         },
         (_, error) => {
           rej(error);

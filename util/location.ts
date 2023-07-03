@@ -6,6 +6,7 @@ export const getMapPreview = ({ lat, lng }: ILocation) => {
 };
 
 export const getAddress = async ({ lat, lng }: ILocation) => {
+
   const result = await fetch(
     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.MAP_API_KEY}`
   );

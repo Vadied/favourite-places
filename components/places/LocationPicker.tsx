@@ -34,7 +34,7 @@ const LocationPicker = ({ onChange }: Props) => {
 
     const mapSelected: ILocation = {
       lat: route.params.location.lat,
-      lng: route.params.location.lat,
+      lng: route.params.location.lng,
     };
 
     setLocation(mapSelected);

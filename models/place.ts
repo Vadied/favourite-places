@@ -4,18 +4,21 @@ export class PlaceCreate {
   title: string;
   imageUri: string;
   address: string;
-  location: ILocation;
+  lat: number;
+  lng: number;
 
   constructor(
     title: string,
     imageUri: string,
     address: string,
-    location: ILocation
+    lat: number,
+    lng: number
   ) {
     this.title = title;
     this.imageUri = imageUri;
     this.address = address;
-    this.location = location; // { lat: 0.141241, lng: 127.121 }
+    this.lat = lat;
+    this.lng = lng;
   }
 }
 
@@ -26,10 +29,11 @@ export class Place extends PlaceCreate {
     title: string,
     imageUri: string,
     address: string,
-    location: ILocation,
+    lat: number,
+    lng: number,
     id: string
   ) {
-    super(title, imageUri, address, location);
+    super(title, imageUri, address, lat, lng);
     this.id = id;
   }
 }
