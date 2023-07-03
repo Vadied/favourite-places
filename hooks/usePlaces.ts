@@ -1,25 +1,9 @@
-import React, {
-  ReactNode,
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Place, PlaceCreate } from "../models";
 import { init, insert, fetchAll, fetchOne } from "../database/places";
 
-export type PlacesContext = {
-  loading: boolean;
-  savePlace(place: PlaceCreate): Promise<void>;
-  fetchPlaces(): Promise<Place[]>;
-  fetchPlace(id: string): Promise<Place | null>;
-};
-const Context = createContext({} as PlacesContext);
-
-type Props = { children: ReactNode };
-export const PlacesContextProvider = ({ children }: Props) => {
+const usePlaces = () => {
   const [loading, setLoading] = useState(false);
 
   const createPlaceTable = useCallback(async () => {
@@ -73,13 +57,17 @@ export const PlacesContextProvider = ({ children }: Props) => {
     [setLoading]
   );
 
+
   useEffect(() => {
     createPlaceTable();
   }, []);
 
-  const value = { savePlace, fetchPlaces, fetchPlace, loading };
-
-  return <Context.Provider value={value}>{children}</Context.Provider>;
+  return {
+    savePlace,
+    fetchPlaces,
+    fetchPlace,
+    loading
+  };
 };
 
-export default () => useContext(Context);
+export default usePlaces;

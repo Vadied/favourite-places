@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Text, Alert, View, Image, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { Text, Alert, View, StyleSheet } from "react-native";
 import {
   useCameraPermissions,
   PermissionStatus,
@@ -9,7 +9,7 @@ import {
 
 import { Colors } from "../../constants";
 
-import { OutlinedButton } from "../ui";
+import { OutlinedButton, Image } from "../ui";
 
 type Props = {
   onChange(image: string): void;
@@ -59,7 +59,7 @@ const ImagePicker = ({ onChange }: Props) => {
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         {!image && <Text>No image taken yet</Text>}
-        {image && <Image style={styles.image} source={{ uri: image }} />}
+        {image && <Image style={styles.image} uri={image} />}
       </View>
       <OutlinedButton icon="camera" onPress={openCamera}>
         Open Camera

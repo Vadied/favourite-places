@@ -39,8 +39,7 @@ export const insert = ({ title, imageUri, address, location }: PlaceCreate) =>
         INSERT INTO places (title, imageUri, address, lat, lng) VALUES (?, ?, ?, ?, ?)
         `,
         [title, imageUri, address, location.lat, location.lng],
-        (_, result) => {
-        },
+        (_, result) => {},
         (_, error) => {
           rej(error);
           return true;

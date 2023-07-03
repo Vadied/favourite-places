@@ -2,11 +2,12 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useIsFocused } from "@react-navigation/native";
 
 import { Place } from "../models";
+import { usePlaces } from "../hooks";
 import { PlaceList } from "../components/places";
-import { usePlaces } from "../contexts";
+import { Loader } from "../components/ui";
 
 const AllPlaces = () => {
-  const { fetchPlaces } = usePlaces();
+  const { fetchPlaces, loading } = usePlaces();
   const isFocused = useIsFocused();
 
   const [places, setPlaces] = useState<Place[]>([]);
@@ -21,6 +22,8 @@ const AllPlaces = () => {
   useEffect(() => {
     getPlaces();
   }, [getPlaces]);
+
+  if (loading) return <Loader />;
 
   return <PlaceList places={places} />;
 };
